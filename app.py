@@ -8,10 +8,18 @@ import sys
 class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.windowTitleChanged.connect(self.onWindowTitleChange)
+        self.windowTitleChanged.connect(self.my_custom_function)
         self.setWindowTitle("My Awesome Window")
         label = QLabel("Awesome stuff.")
         label.setAlignment(Qt.AlignCenter)
         self.setCentralWidget(label)
+
+    def onWindowTitleChange(self, s):
+        print(s)
+
+    def my_custom_function(self, input_string, num=25):
+        print(self, input_string, num)
 
 # You need one (and only one) QApplication instance per application.
 # Pass in sys.argv to allow command line arguments for your app.
