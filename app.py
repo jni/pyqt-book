@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         layout = QHBoxLayout()
-        for i in range(10):
+        for i in range(5):
             button = QPushButton(' %i ' % i)
             button.pressed.connect(make_printer(i))
             layout.addWidget(button)
@@ -24,6 +24,14 @@ class MainWindow(QMainWindow):
         singleton_widget = QWidget()
         singleton_widget.setLayout(layout)
         self.setCentralWidget(singleton_widget)
+
+        toolbar = QToolBar('Main toolbar')
+        self.addToolBar(toolbar)
+
+        button_action = QAction('Button', self)
+        button_action.setStatusTip('Your button')
+        button_action.triggered.connect(make_printer(-1))
+        toolbar.addAction(button_action)
 
     def contextMenuEvent(self, event):
         print('Context menu event happened!')
