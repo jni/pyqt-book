@@ -5,21 +5,26 @@ from PyQt5.QtGui import *
 # Only needed for access to command line arguments
 import sys
 
+
+def make_printer(num):
+    def print_value():
+        print(num)
+    return print_value
+
+
 class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.windowTitleChanged.connect(self.onWindowTitleChange)
-        self.windowTitleChanged.connect(self.my_custom_function)
+        layout = QHBoxLayout()
+        for i in range(10):
+            button = QPushButton(str(i))
+            button.pressed.connect(make_printer(i))
+            layout.addWidget(button)
         self.setWindowTitle("My Awesome Window")
-        label = QLabel("Awesome stuff.")
-        label.setAlignment(Qt.AlignCenter)
-        self.setCentralWidget(label)
+        singleton_widget = QWidget()
+        singleton_widget.setLayout(layout)
+        self.setCentralWidget(singleton_widget)
 
-    def onWindowTitleChange(self, s):
-        print(s)
-
-    def my_custom_function(self, input_string, num=25):
-        print(self, input_string, num)
 
 # You need one (and only one) QApplication instance per application.
 # Pass in sys.argv to allow command line arguments for your app.
