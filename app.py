@@ -12,6 +12,11 @@ def make_printer(num):
     return print_value
 
 
+def print_button_state(signal):
+    signal_text = 'on' if signal else 'off'
+    print('Button is now ' + signal_text)
+
+
 class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -30,7 +35,8 @@ class MainWindow(QMainWindow):
 
         button_action = QAction('Button', self)
         button_action.setStatusTip('Your button')
-        button_action.triggered.connect(make_printer(-1))
+        button_action.triggered.connect(print_button_state)
+        button_action.setCheckable(True)
         toolbar.addAction(button_action)
 
     def contextMenuEvent(self, event):
