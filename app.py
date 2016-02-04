@@ -25,6 +25,8 @@ class MainWindow(QMainWindow):
         singleton_widget.setLayout(layout)
         self.setCentralWidget(singleton_widget)
 
+    def contextMenuEvent(self, event):
+        print('Context menu event happened!')
 
 # You need one (and only one) QApplication instance per application.
 # Pass in sys.argv to allow command line arguments for your app.
