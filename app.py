@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
         super().__init__(*args, **kwargs)
         layout = QHBoxLayout()
         for i in range(10):
-            button = QPushButton(str(i))
+            button = QPushButton(' %i ' % i)
             button.pressed.connect(make_printer(i))
             layout.addWidget(button)
         self.setWindowTitle("My Awesome Window")
